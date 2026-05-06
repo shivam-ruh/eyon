@@ -1,0 +1,39 @@
+infrastructure:
+  - key: PG_CONNECTION_STRING
+    label: Postgres Connection String
+    required: true
+    secret: true
+  - key: ORG_ID
+    label: Org Id
+    required: true
+    secret: false
+  - key: AGENT_ID
+    label: Agent Id
+    required: true
+    secret: false
+  - key: DATABASE_URL
+    label: Database URL
+    required: true
+    secret: true
+connector:
+  - key: X_API_KEY
+    label: X API Key
+    required: true
+    secret: true
+  - key: X_API_SECRET
+    label: X API Secret
+    required: true
+    secret: true
+  - key: X_ACCESS_TOKEN
+    label: X Access Token
+    required: true
+    secret: true
+  - key: X_ACCESS_TOKEN_SECRET
+    label: X Access Token Secret
+    required: true
+    secret: true
+channel:
+  - key: X
+    label: X
+    required: true
+    secret: false

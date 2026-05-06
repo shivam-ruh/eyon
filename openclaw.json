@@ -1,0 +1,43 @@
+{
+  "name": "eyon",
+  "version": "1.0.0",
+  "description": "A small X-only automation agent that auto-replies to mentions and publishes a concise internal daily summary of replies and reposts.",
+  "agent_metadata": {
+    "agent_name": "eyon",
+    "agent_id": "eyon",
+    "avatar": "🤖",
+    "tone": "helpful, concise, cautious",
+    "domain": "social automation",
+    "primary_users": "general users",
+    "automation_type": "hybrid event-and-schedule",
+    "schedule_description": "Responds to X mentions as they arrive and generates one internal daily summary each day.",
+    "cron_expression": "0 18 * * *"
+  },
+  "skills": [
+    "data-writer",
+    "result-query",
+    "github-action",
+    "x-mention-reply",
+    "x-daily-report"
+  ],
+  "workflows": {
+    "main": "workflows/main.yaml"
+  },
+  "cron": {
+    "daily-summary": "cron/daily-summary.json",
+    "mention-poll": "cron/mention-poll.json"
+  },
+  "env": {
+    "required": [
+      "PG_CONNECTION_STRING",
+      "ORG_ID",
+      "AGENT_ID",
+      "DATABASE_URL",
+      "X_API_KEY",
+      "X_API_SECRET",
+      "X_ACCESS_TOKEN",
+      "X_ACCESS_TOKEN_SECRET",
+      "X"
+    ]
+  }
+}

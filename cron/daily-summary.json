@@ -1,0 +1,16 @@
+{
+  "name": "daily-summary",
+  "enabled": true,
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 18 * * *",
+    "tz": "UTC"
+  },
+  "sessionTarget": "x-daily-report",
+  "wakeMode": "schedule",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "Generate the internal daily summary for Eyon covering the previous UTC day’s replies and reposts.",
+    "timeoutSeconds": 900
+  }
+}

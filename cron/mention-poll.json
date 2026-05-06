@@ -1,0 +1,16 @@
+{
+  "name": "mention-poll",
+  "enabled": true,
+  "schedule": {
+    "kind": "cron",
+    "expr": "*/5 * * * *",
+    "tz": "UTC"
+  },
+  "sessionTarget": "x-mention-reply",
+  "wakeMode": "schedule",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "Check for new X mentions for Eyon and process any replyable items.",
+    "timeoutSeconds": 900
+  }
+}

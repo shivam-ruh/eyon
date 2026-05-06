@@ -1,0 +1,12 @@
+version: 1
+name: main
+steps:
+  - id: data-writer
+    type: skill
+    skill: data-writer
+  - id: reply_mentions
+    type: skill
+    skill: x-mention-reply
+  - id: daily_summary
+    type: skill
+    skill: x-daily-report

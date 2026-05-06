@@ -1,0 +1,116 @@
+version: "1.0"
+agent_id: eyon
+
+tables:
+  result_mention_context:
+    description: "Normalized record of each X mention handled by Eyon, including reply outcome and latency."
+    writable: true
+    write_mode: upsert
+    columns:
+      mention_id:
+        type: string
+        primary_key: true
+        required: true
+        max_length: 128
+        description: Unique X mention identifier.
+      agent_name:
+        type: string
+        required: true
+        max_length: 128
+        description: Agent name that handled the mention.
+      x_author_id:
+        type: string
+        required: true
+        max_length: 128
+        description: X author id for the mention.
+      x_author_handle:
+        type: string
+        required: true
+        max_length: 128
+        description: X author handle of the mention author.
+      mention_text:
+        type: string
+        required: true
+        max_length: 5000
+        description: Mention text content.
+      mention_created_at:
+        type: string
+        required: true
+        max_length: 64
+        description: UTC timestamp for when the mention was created.
+      reply_status:
+        type: string
+        required: true
+        max_length: 32
+        description: Reply outcome such as posted or skipped.
+      reply_text:
+        type: string
+        max_length: 500
+        description: Reply text that was posted or drafted.
+      reply_post_id:
+        type: string
+        max_length: 128
+        description: X post id of the reply.
+      replied_at:
+        type: string
+        max_length: 64
+        description: UTC timestamp when the reply was posted.
+      response_latency_seconds:
+        type: integer
+        description: Seconds between mention and reply attempt.
+      raw_mention:
+        type: string
+        required: true
+        description: Raw normalized mention payload serialized as JSON.
+    conflict_columns:
+      - mention_id
+    indexes:
+      - columns: [agent_name, mention_created_at]
+        name: idx_result_mention_context_agent_created
+  result_daily_summary:
+    description: Internal daily summary of reply and repost activity for Eyon.
+    writable: true
+    write_mode: upsert
+    columns:
+      summary_date:
+        type: string
+        required: true
+        max_length: 16
+        description: UTC date covered by the summary.
+      agent_name:
+        type: string
+        required: true
+        max_length: 128
+        description: Agent name.
+      total_mentions:
+        type: integer
+        required: true
+        description: Count of mentions in the window.
+      total_replies:
+        type: integer
+        required: true
+        description: Count of replies in the window.
+      total_reposts:
+        type: integer
+        required: true
+        description: Count of reposts in the window.
+      summary_text:
+        type: string
+        required: true
+        max_length: 500
+        description: "Concise human-readable summary."
+      generated_at:
+        type: string
+        required: true
+        max_length: 64
+        description: UTC timestamp when the summary was generated.
+      source_window:
+        type: string
+        required: true
+        description: Metadata describing the reporting window and row counts serialized as JSON.
+    conflict_columns:
+      - summary_date
+      - agent_name
+    indexes:
+      - columns: [generated_at]
+        name: idx_result_daily_summary_generated_at
